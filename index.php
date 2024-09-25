@@ -19,12 +19,12 @@ $conn = $conexion->conectar();
 $datos = $conn->query('SELECT * FROM empleado');
 $resultados = $datos->fetchAll();
 
-switch($GET["type"]){
+switch($_GET["type"]){
     case "json":
         result_json($resultados);
         break;
         case"xml":
-            result_xmñ($resultados);
+            result_xml($resultados);
             break;
             default:
             echo("Por favor, defina el tipo de resultado");
@@ -39,6 +39,7 @@ switch($GET["type"]){
                 "message" => "Se esperaba el parametro 'typr' con el tipo de resultado",
                 "cant" => 0
             );
+        }
         }else{
         $arreglo = array(
             "success"=>false,
@@ -47,7 +48,7 @@ switch($GET["type"]){
             "message" => "NO SE ACEPTA EL METODO",
             "cant" => 0
         );
-    }
+    
 } 
 
 
@@ -67,7 +68,7 @@ function result_json($resultado){
 }
 
 function result_xml($resultado){
-    $xml =new SimpleXMLElement("<empeados />");
+    $xml =new SimpleXMLElement("<empleados />");
     foreach($resultado as $i =< $v){
         $subnodo = $xml->addChild("empleado");
         $invertir = array_flip($v);
